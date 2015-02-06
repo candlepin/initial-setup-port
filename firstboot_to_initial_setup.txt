@@ -1,0 +1,23 @@
+
+RHEL7 firstboot migration
+
+General
+=======
+
+
+Firstboot has been replaced with "initial setup".
+https://github.com/rhinstaller/initial-setup
+(rhel7-branch)
+
+initial-setup runs on firstboot, and can use data
+collected in anaconda to do configuration. install-setup
+modules are based on anaconda addons.
+
+Links
+=====
+
+https://fedoraproject.org/wiki/Features/NewFirstboot
+https://fedoraproject.org/wiki/Anaconda/Contribute#initial_setup - Notes
+on dev setup for anaconda/initial-setup.
+
+https://github.com/vpodzime/anaconda-addon-development-guide/

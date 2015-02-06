@@ -1,0 +1,9 @@
+[submodule "anaconda"]
+	path = anaconda
+	url = git@github.com:rhinstaller/anaconda.git
+[submodule "hello-world-anaconda-addon"]
+	path = hello-world-anaconda-addon
+	url = git@github.com:vpodzime/hello-world-anaconda-addon.git
+[submodule "initial-setup"]
+	path = initial-setup
+	url = git@github.com:rhinstaller/initial-setup.git

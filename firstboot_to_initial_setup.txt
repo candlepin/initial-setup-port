@@ -26,13 +26,29 @@ pygtk/gtk compatability:
     in the same process. ie, we need to port the gui to pygtk3,
     or write new pygtk3 based gui for initial setup.
 
+libglade -> GtkBuilder:
+
+    A subset of gtk compat, but we have to port the ui that
+    uses gtk.glade to gtk.GtkBuilder. 
+
+    The api's are similar, but the glade files are not quite
+    compatible, so that means branching them or providing multiple
+    versions.
+
+    There are also a few kluges for gtk.glade that we should be
+    able to remove, mostly related to being able to import sub
+    sections of glade files. And better support for TreeView
+
 gui flow:
 
     initial-setup is based on a hub and spoke gui flow, which
     is different from the "wizard" approach of previous firstboot
     modules. 
 
-    TBD: if we can adapt to this approach
+    TBD: if we can adapt to this approach. In a lot of ways, 
+    initial-setup seems to expect 'one screen modules', much
+    like firstboot. And that for multiple stage gui flows, that
+    the order is fairly linear.
 
 tui/script support:
 
@@ -43,6 +59,17 @@ tui/script support:
     Depending on the level of ui sophistication we want, this
     might be difficult.
 
+needs to be as async as possible
+
+    pygtk3 and anaconda both work best if the networking tools
+    are non-blocking and async. The current python-rhsm module
+    is not at all, though gui.managerui.AsyncBackend is part
+    way there, although by using a thread model instead of
+    an event driven model.
+
+    How much this is a requirement is unknown, though the
+    flow in and out of 'spokes' is important (a spoke shouldn't
+    block the app, as it would prevent returning to the hub...)
 
 Submodules
 ==========
@@ -95,6 +122,7 @@ Addon modules
 
 The modules in those directories are introspected to find anaconda base
 clases (which must be added to modules __all__ list).
+
 For the 'ks' modules, that means the AddonData class:
 
     from pyanaconda.addons import AddonData
@@ -107,6 +135,9 @@ The spokes module classes can expose a setup() and an execute().
 execute is called to apply the changes after the install/setup
 transaction.
 
+For gui spokes, the base class is:
+
+    from pyanaconda.ui.gui.spokes import NormalSpoke
 
 Running initial-setup for test/dev
 ==================================

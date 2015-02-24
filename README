@@ -1,1 +1,12 @@
-This module includes submodules, so clone with --recursive
+This repo is for the design and documentation of porting
+subscription-managers firstboot module to 'initial-setup'.
+
+Any code will live in https://github.com/candlepin/subscription-manager
+
+This module includes submodules, so git clone with --recursive.
+
+This module includes submodules of several components related
+to initial-setup and anaconda. They are include here for
+convience and reference.
+
+See firstboot_to_initial_setup.txt for more details.

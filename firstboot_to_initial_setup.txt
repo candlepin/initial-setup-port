@@ -58,6 +58,100 @@ Those include:
   anaconda-realmd from https://git.fedorahosted.org/git/anaconda-realmd.git
 
 
+The Plan
+========
+
+Anaconda docs suggest getting the "ks" ui portion working first, since
+the other ui modules provide data to it.
+
+Then tui/gui.
+
+
+Source Code Layout
+==================
+
+Addon modules are installed onto the system at:
+
+    /usr/share/anaconda/addons/
+
+Each addon needs to create a dir there using reverse domain snake style
+name (see
+https://vpodzime.fedorapeople.org/anaconda-addon-development-guide/#section_kickstart_support).
+
+For example, for us:
+
+    com_redhat_rhsm/
+
+Inside our addon dir, we need:
+    com_redhat_rhsm/
+                ks/
+                tui/
+                  spokes/
+                gui/
+                  spokes/
+
+Addon modules
+=============
+
+The modules in those directories are introspected to find anaconda base
+clases (which must be added to modules __all__ list).
+For the 'ks' modules, that means the AddonData class:
+
+    from pyanaconda.addons import AddonData
+
+That class represents the data that will can come from a kickstart file.
+The class also knows how to parse the kickstart data for the addon and
+act on it.
+
+The spokes module classes can expose a setup() and an execute().
+execute is called to apply the changes after the install/setup
+transaction.
+
+
+Running initial-setup for test/dev
+==================================
+
+WARNING WARNING WARNING:
+
+With the default version of initial setup, if it launches into tui mode,
+
+DO NOT EXIT WITHOUT AGREEING TO THE LICENSE TERMS. IT WILL REBOOT YOUR
+SYSTEM.
+
+
+It will reboot.
+
+To defang, you can edit /usr/lib/python2.7/site-packages/initial_setup/__main__.py
+and comment out the 'os.reboot' line after "EULA not accepted, leaving Initial Setup enabled and rebooting the system"
+
+
+initial-setup is a pretty picky about it's setup. To test gui mode you
+need:
+
+* DISPLAY env var set to a display it has access to.
+
+
+Misc design notes
+=================
+
+Based on previous firstboot code, etc.
+
+* DO NOT MULTIPLE INHERIT ANYTHING
+
+* DO NOT ATTEMPT TO MAKE ONE CLASS MATCH THE API OF TWO DIFFERENT INCOMPATIBLE CLASSES
+
+* DO NOT OVERLOAD STATE TRANSITIONS
+
+* DO NOT ATTEMPT TO SUPPORT MULTIPLE RHEL VERSIONS WITH THE SAME VERSION OF THE CODE
+
+* DO NOT ATTEMPT TO INHERIT CLASSES AND TO INHERIT MULTIPLE PARENT WIDGETS
+
+* DO NOT INVENT ANOTHER INHERITANCE PARADIGM BASED ON ACCUMULATING TO A
+  LIST OF WIDGETS
+
+* DO NOT OVERRIDE ASYNC METHODS WITH SYNC METHODS IN SUBCLASSES
+
+
 Links
 =====
 
@@ -65,4 +159,6 @@ https://fedoraproject.org/wiki/Features/NewFirstboot
 https://fedoraproject.org/wiki/Anaconda/Contribute#initial_setup - Notes
 on dev setup for anaconda/initial-setup.
 
+* USEFUL *
 https://github.com/vpodzime/anaconda-addon-development-guide/
+https://vpodzime.fedorapeople.org/anaconda-addon-development-guide/

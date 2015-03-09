@@ -9,9 +9,6 @@
 	path = initial-setup
 	url = git@github.com:rhinstaller/initial-setup.git
 	branch = rhel7-branch
-[submodule "oscap-anaconda-addon"]
-	path = oscap-anaconda-addon
-	url = https://git.fedorahosted.org/git/oscap-anaconda-addon.git
 [submodule "kdump-anaconda-addon"]
 	path = kdump-anaconda-addon
 	url = git@github.com:daveyoung/kdump-anaconda-addon.git

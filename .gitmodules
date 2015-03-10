@@ -15,3 +15,9 @@
 [submodule "anaconda-realmd"]
 	path = anaconda-realmd
 	url = https://git.fedorahosted.org/git/anaconda-realmd.git
+[submodule "oscap-addon"]
+	path = oscap-addon
+	url = git@github.com:OpenSCAP/oscap-anaconda-addon.git
+[submodule "anaconda-addon-development-guide"]
+	path = anaconda-addon-development-guide
+	url = git@github.com:rhinstaller/anaconda-addon-development-guide.git
